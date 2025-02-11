@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>С 14 февраля!</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 25px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            color: white;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 20px;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        button {
+            font-size: 18px;
+            padding: 12px 20px;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: 0.3s ease;
+        }
+        .yes {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .no {
+            background-color: #f44336;
+            color: white;
+        }
+        button:hover {
+            transform: scale(1.1);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="content">
+        <h1>С Днём Святого Валентина!</h1>
+        <p>Ты принимаешь мои поздравления? 😊</p>
+        <div class="buttons">
+            <button class="yes" onclick="celebrate()">Да</button>
+            <button class="no" onclick="fakeShutdown()">Нет</button>
+        </div>
+    </div>
+
+    <script>
+        function fakeShutdown() {
+            document.body.style.background = "black";
+            let msg = document.querySelector("#content");
+            msg.innerHTML = "<h1 style='color: red;'>КРИТИЧЕСКАЯ ОШИБКА СИСТЕМЫ</h1><h2 style='color: white;'>Обнаружена вредоносная активность</h2><h3 style='color: white;'>Выполняется автоматическая защита</h3><h2 id='countdown' style='color: red; font-size: 50px;'>3</h2>";
+
+            let audio = new Audio('https://www.myinstants.com/media/sounds/siren.mp3'); 
+            audio.play();
+
+            if (navigator.vibrate) {
+                navigator.vibrate([500, 500, 500]);
+            }
+
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen();
+            }
+
+            let counter = 3;
+            let interval = setInterval(() => {
+                counter--;
+                document.getElementById("countdown").innerText = counter;
+                
+                if (counter === 0) {
+                    clearInterval(interval);
+                    document.body.innerHTML = "<h1 style='color: red; font-size: 40px;'>Ошибка безопасности</h1><h2 style='color: white;'>Система заблокирована для предотвращения угрозы</h2><h3 style='color: white;'>Перезагрузите устройство и выполните диагностику</h3>";
+
+                    setTimeout(() => {
+                        window.close();
+                        location.replace("about:blank");
+                    }, 2000);
+                }
+            }, 1000);
+        }
+
+        function celebrate() {
+            document.body.innerHTML = "<h1 style='color: pink; font-size: 50px;'>Поздравление принято!</h1>";
+
+            let audio = new Audio('https://www.myinstants.com/media/sounds/tada.mp3');
+            audio.play();
+        }
+    </script>
+</body>
+</html>
